@@ -16,14 +16,14 @@ LOG_FORMAT = logging.Formatter(
     '%(asctime)s amlexa %(levelname)s %(name)s.%(funcName)s:%(lineno)d '
     '- %(message)s')
 
-PRODUCT_ID = os.environ('PRODUCT_ID', 'PRODUCT_ID')
-SECURITY_PROFILE_DESCRIPTION = os.environ(
+PRODUCT_ID = os.environ.get('PRODUCT_ID', 'PRODUCT_ID')
+SECURITY_PROFILE_DESCRIPTION = os.environ.get(
     'SECURITY_PROFILE_DESCRIPTION', 'SECURITY_PROFILE_DESCRIPTION')
-SECURITY_PROFILE_ID  = os.environ('SECURITY_PROFILE_ID', 'SECURITY_PROFILE_ID')
-CLIENT_ID = os.environ('CLIENT_ID', 'CLIENT_ID')
-CLIENT_SECRET = os.environ('CLIENT_SECRET', 'CLIENT_SECRET')
+SECURITY_PROFILE_ID  = os.environ.get('SECURITY_PROFILE_ID', 'SECURITY_PROFILE_ID')
+CLIENT_ID = os.environ.get('CLIENT_ID', 'CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET', 'CLIENT_SECRET')
 
-REFRESH_TOKEN = os.environ('REFRESH_TOKEN', 'REFRESH_TOKEN')
+REFRESH_TOKEN = os.environ.get('REFRESH_TOKEN', 'REFRESH_TOKEN')
 
 OAUTH_URL = 'https://api.amazon.com/auth/o2/token'
 REC_URL = 'https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recognize'
