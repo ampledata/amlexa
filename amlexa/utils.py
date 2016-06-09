@@ -53,7 +53,6 @@ def play_audio(audio_file):
     return aplay_proc
 
 
-
 def delete_media(media_path):
     """
     Deletes media file at path (to save space).

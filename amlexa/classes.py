@@ -65,11 +65,12 @@ class AmlexaResponderThread(threading.Thread):
         _logger.addHandler(_console_handler)
         _logger.propagate = False
 
-    def __init__(self, media_dir, queue):
+    def __init__(self, media_dir, queue, callback=None):
         threading.Thread.__init__(self)
         self.daemon = True
         self.media_dir = media_dir
         self.queue = queue
+        self.callback = callback
         self._stop = threading.Event()
 
     def stop(self):
@@ -92,14 +93,18 @@ class AmlexaResponderThread(threading.Thread):
                 response_path = amlexa.functions.alexa(media_path)
 
                 if response_path is not None:
-                    self._logger.debug(
-                        'Playing response_path=%s', response_path)
-                    amlexa.utils.play_audio(response_path)
+                    if self.callback is not none:
+                        callback(media_path, response_path)
+                    else:
+                        self._logger.debug(
+                            'Playing response_path=%s', response_path)
+                        amlexa.utils.play_audio(response_path)
 
-                    self._logger.debug('Deleting media_path=%s', media_path)
-                    amlexa.utils.delete_media(media_path)
+                        self._logger.debug(
+                            'Deleting media_path=%s', media_path)
+                        amlexa.utils.delete_media(media_path)
 
-                    self._logger.debug(
-                        'Deleting response_path=%s', response_path)
-                    amlexa.utils.delete_media(response_path)
+                        self._logger.debug(
+                            'Deleting response_path=%s', response_path)
+                        amlexa.utils.delete_media(response_path)
             self.queue.task_done()
