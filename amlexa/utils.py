@@ -51,3 +51,14 @@ def play_audio(audio_file):
     aplay_proc = subprocess.Popen(aplay_args)
     aplay_proc.wait()
     return aplay_proc
+
+
+
+def delete_media(media_path):
+    """
+    Deletes media file at path (to save space).
+
+    :param media_path: Path to Media File.
+    :type media_path: str
+    """
+    return os.unlink(media_path)
