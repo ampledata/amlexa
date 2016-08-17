@@ -23,9 +23,6 @@ __license__ = 'Apache License, Version 2.0'
 
 
 def tx_radio(media_path, response_path):
-
-
-def tx_radio(media_path, response_path):
     #ptt_pin = amlexa.constants.PTT_PIN
 
     gpio.setmode(gpio.BCM)
