@@ -101,7 +101,7 @@ class AmlexaResponderThread(threading.Thread):
 
                 if response_path is not None:
                     if self.callback is not None:
-                        callback(media_path, response_path)
+                        self.callback(media_path, response_path)
                     else:
                         self._logger.debug(
                             'Playing response_path=%s', response_path)
