@@ -8,6 +8,7 @@ import json
 import re
 import shlex
 import subprocess
+import time
 import tempfile
 
 import RPi.GPIO as gpio
@@ -22,14 +23,19 @@ __license__ = 'Apache License, Version 2.0'
 
 
 def tx_radio(media_path, response_path):
-    ptt_pin = amlexa.constants.PTT_PIN
+
+
+def tx_radio(media_path, response_path):
+    #ptt_pin = amlexa.constants.PTT_PIN
 
     gpio.setmode(gpio.BCM)
-    gpio.setup(18, GPIO.OUT)
+    gpio.setup(18, gpio.OUT)
 
-    GPIO.output(18, False)
+    gpio.output(18, False)
+    time.sleep(1)
     amlexa.utils.play_audio(response_path)
-    GPIO.output(18, True)
+    time.sleep(1)
+    gpio.output(18, True)
 
     amlexa.utils.delete_media(media_path)
     amlexa.utils.delete_media(response_path)

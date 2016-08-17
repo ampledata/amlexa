@@ -9,6 +9,7 @@ import time
 
 import amlexa
 import amlexa.constants
+import amlexa.rsuv3
 
 __author__ = 'Greg Albrecht W2GMD <gba@orionlabs.io>'
 __copyright__ = 'Copyright 2016 Orion Labs, Inc.'
@@ -24,7 +25,8 @@ def cli():
 
     queue = Queue.Queue()
     worker_listen = amlexa.AmlexaListenerThread(opts.media_dir, queue)
-    worker_respond = amlexa.AmlexaResponderThread(opts.media_dir, queue)
+    worker_respond = amlexa.AmlexaResponderThread(
+        opts.media_dir, queue, callback=amlexa.rsuv3.tx_radio)
 
     try:
         worker_listen.start()

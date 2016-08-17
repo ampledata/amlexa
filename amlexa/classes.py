@@ -49,9 +49,16 @@ class AmlexaListenerThread(threading.Thread):
             self._logger.debug(
                 'Starting recording at media_dir=%s', self.media_dir)
             media_path = amlexa.utils.vox_record_audio(self.media_dir)
-            self._logger.debug(
-                'Completed recording at media_path=%s', media_path)
-            self.queue.put(media_path)
+            try:
+                if os.stat(media_path).st_size > 0:
+                    self._logger.debug(
+                        'Completed recording at media_path=%s', media_path)
+                    self.queue.put(media_path)
+                else:
+                    self._logger.error(
+                        'Empty recording at media_path=%s', media_path)
+            except OSError:
+                self._logger.error('No recording at media_path=%s', media_path)
 
 
 class AmlexaResponderThread(threading.Thread):
@@ -93,7 +100,7 @@ class AmlexaResponderThread(threading.Thread):
                 response_path = amlexa.functions.alexa(media_path)
 
                 if response_path is not None:
-                    if self.callback is not none:
+                    if self.callback is not None:
                         callback(media_path, response_path)
                     else:
                         self._logger.debug(
